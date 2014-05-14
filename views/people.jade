@@ -20,18 +20,24 @@ block content
           input(type="submit")
 
   div.col-md-9
-    div(class="jumbotron", style="padding-top: 5px; padding-left: 10px; padding-right: 10px;") 
-      h3 Owner     
-      ul
-       each o in owner
-        li
-          a.card-link( href="/card/edit/" + o._id ) #{o.title}
-      h3 Items
-      ul
-       each item in items
-        li
-          a.card-link( href="/card/edit/" + item._id ) #{item.title} #{item.itemText}
-          
+    div(class="jumbotron", style="padding-top: 5px; padding-left: 10px; padding-right: 10px;")
+      - if (typeof(person) !== 'undefined' ) {
+        h2 #{person.name}
+      - }
+      - if (typeof(owner) !== 'undefined' && owner.length ){
+        h3 Owner     
+        ul
+         each o in owner
+          li
+            a.card-link( href="/card/edit/" + o._id ) #{o.title}
+      - }
+      - if (typeof(items) !== 'undefined' && items.length){
+        h3 Items
+        ul
+         each item in items
+          li
+            a.card-link( href="/card/edit/" + item._id ) #{item.title} #{item.itemText}
+      - }
   script(src='/js/jquery-1.11.0.min.js')
   script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
   script(src='/js/bootstrap.min.js')
