@@ -21,7 +21,7 @@ block content
               input(type="text", class="form-control", id="cardTitle" value="#{storedCard.title}")
               input(type="hidden", class="form-control", id="cardId" value="#{storedCard._id}")
             -} else {
-             input(type="text", class="form-control", id="cardTitle")            
+              input(type="text", class="form-control", id="cardTitle")            
             -}
         div.form-group
           label(for="description", class="col-sm-2 control-label") Description
@@ -36,16 +36,15 @@ block content
           div.col-sm-10
             div( class="form-control", id="owner")
               - if (typeof(storedCard) !== 'undefined' ){ 
-                //-console.log(storedCard._owner);
                 - if( typeof(storedCard._owner) !== 'undefined' && typeof(storedCard._owner._id) !== 'undefined' ) {
                   div( id="#{storedCard._owner._id}" class="thingWrapper tag label btn-info sm")
                     span #{storedCard._owner.name}
                       a(class="removeTag", onclick="return removeTag( '#{storedCard._owner._id}' )", style="opacity: 0.6;")
                         i(class="remove glyphicon glyphicon-remove-sign glyphicon-white")
                 - }
-            - } else {  
+              - } else {  
                 span.drop-fill Drop person(s) here
-            - }
+              - }
         div(class="btn-toolbar", role="toolbar", style="margin-left: 15px; margin-bottom: 10px;")
           div.btn-group
             button( id="newItem", type="button", class="btn btn-primary btn-sm") New Item
@@ -70,14 +69,13 @@ block content
     div(class="sidebar-nav-fixed pull-right affix")
       div.well
         div( id="ppl", class="drag-zone")
-             
-  
   
         h2 Create a new team member
         form(action="/people/create", method="post")
           input(type="text", name="name", placeholder="Name")
           input(type="email",name="email", placeholder="Email")
           input(type="submit")
+  
     
   script(src='/js/jquery-1.11.0.min.js')
   script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
@@ -101,6 +99,3 @@ block content
   
   each cmp in allCmps
     script= "createButton( '" + cmp.name + "','', '" + cmp._id + "', '#cmp');"
-      
-  
-  

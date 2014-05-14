@@ -38,7 +38,7 @@ if ('development' === app.get('env')) {
 }
 
 mongoose.connect( config.mongoUrl );
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 
 var Person  = require('./models/person');

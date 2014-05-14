@@ -13,6 +13,8 @@
       "bcrypt-nodejs":"*",
       "connect-flash" : "*",
       "sequence" : "2.*",
-      "underscore" : "*"
+      "underscore" : "*",
+      "debug" : "*",
+      "bson" : "*"
     }
 }
