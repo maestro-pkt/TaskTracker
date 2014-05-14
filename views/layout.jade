@@ -14,7 +14,7 @@ html
     div( class="navbar navbar-fixed-top navbar-default")
       div.container
         div.navbar-header
-            a.navbar-brand( href="#" ) Project name
+            a.navbar-brand( href="/" ) Task Tracker
           a.navbar-toggle( data-toggle="collase" data-target=".navbar-collapse" )
             span(class="glyphicon glyphicon-bar")
             span(class="glyphicon glyphicon-bar")
@@ -27,6 +27,8 @@ html
               a(href="/about") About
             li
               a(href="/card/new") New Card
+            li
+              a(href="/person") View By Person
     div#container(class="container")
       block content
     footer

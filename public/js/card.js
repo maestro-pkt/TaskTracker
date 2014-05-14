@@ -247,14 +247,29 @@ return false;
   $('#saveCard').on(
       'click',
       function() {
-        var o = $('#owner').children();
         var itemRoot = $('#itemPlaceholder div.item');
         //console.log( itemRoot );
         var json = {};
         json._id = $('#cardId').val();
         json.title = $('#cardTitle').val();
         json.desc = $('#description').val();
-        json.owner = o.attr('id');
+        
+        
+        var p = $('#owner').children();
+        json.owner = [];
+        for (var pi = 0; pi < p.length; pi++) {
+          
+          if (!$(p[pi]).hasClass('drop-fill') ) {
+            json.owner.push($(p[pi]).attr('id'));
+          }
+          if( json.owner.length > 1 ) {
+            alert( 'Only one owner allowed.');
+            return false;
+          }
+        }
+        //console.log( json );
+// return false;       
+        
         var itemsJson = [];
         for (var ii = 0; ii < itemRoot.length; ii++) {
           var item = itemRoot[ii];

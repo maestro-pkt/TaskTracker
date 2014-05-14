@@ -1,0 +1,47 @@
+extends layout
+
+block content
+
+  link(rel='stylesheet', href='/css/people.css')
+
+  div.col-md-3
+    div(class="sidebar-nav-fixed affix")
+      div.well
+        div( id="ppl", class="drag-zone")
+          ul#sliding-navigation
+            each person in ppl
+              li.sliding-element
+                a(href="/person/view/#{person._id}") #{person.name}
+
+        h2 Create a new team member
+        form(action="/people/create", method="post")
+          input(type="text", name="name", placeholder="Name")
+          input(type="email",name="email", placeholder="Email")
+          input(type="submit")
+
+  div.col-md-9
+    div(class="jumbotron", style="padding-top: 5px; padding-left: 10px; padding-right: 10px;") 
+      h3 Owner     
+      ul
+       each o in owner
+        li
+          a.card-link( href="/card/edit/" + o._id ) #{o.title}
+      h3 Items
+      ul
+       each item in items
+        li
+          a.card-link( href="/card/edit/" + item._id ) #{item.title} #{item.itemText}
+          
+  script(src='/js/jquery-1.11.0.min.js')
+  script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
+  script(src='/js/bootstrap.min.js')
+  script(src="/js/wysihtml5-0.3.0.min.js")
+  script(src="/js/handlebars-v1.3.0.js")
+  script(src="/js/bootstrap3-wysihtml5.min.js")
+  script(src='/js/jquery.autosize.min.js')
+  
+  script(src='/js/people.js')
+  
+  each person in ppl
+    script= "createPeopleList( '" + person.name + "','" + person.email +"','" + person._id + "');"
+  

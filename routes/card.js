@@ -46,7 +46,7 @@ exports.editCard = function(req, res) {
                   if (!Array.isArray(ppl)) {
                     ppl = [ ppl ];
                   }
-
+//console.log( oneCard );
                   res.render('card', {
                     storedCard : oneCard,
                     allPpl : ppl,
@@ -103,7 +103,7 @@ exports.newCard = function(req, res) {
 
 exports.save = function(req, res) {
   // console.log( req );
-  // console.log(req.body.card);
+   console.log(req.body.card);
   var cardObj = JSON.parse(req.body.card);
 
   var itemIds = [];
@@ -123,7 +123,7 @@ exports.save = function(req, res) {
           $set : {
             complete : item.complete,
             text : item.text,
-            cmp : item.cmp,
+            components : item.cmp,
             ppl : item.ppl
           }
         }, {
@@ -166,10 +166,15 @@ exports.save = function(req, res) {
     if (typeof cardObj._id === "undefined") {
       console.log('new card');
 
+      var o = '';
+      if( cardObj.owner.length ) {
+        o = cardObj.owner[0];
+      }
+      
       var newCard = new Card({
         title : cardObj.title,
         desc : cardObj.desc,
-        _owner : cardObj.owner,
+        _owner : o,
         followup : {
           requested : true,
           frequency : 'weekly',
@@ -189,7 +194,11 @@ exports.save = function(req, res) {
         
         c.title = cardObj.title;
         c.description = cardObj.desc;
-        c._owner = cardObj.owner;
+        if( cardObj.owner.length ) {
+        c._owner = cardObj.owner[0];
+        } else {
+          c._owner = undefined;
+        }
         c.items = [];
         c.items = itemIds;
         c.save();

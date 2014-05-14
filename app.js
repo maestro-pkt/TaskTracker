@@ -1,5 +1,5 @@
 
-var personRoute    = require('./routes/person');
+var personRoute       = require('./routes/person');
 var componentRoute    = require('./routes/component');
 //var task    = require('./routes/task');
 var cardRoute     = require('./routes/card' );
@@ -47,12 +47,15 @@ var Item       = require('./models/item');
 var Card       = require('./models/card');
 
 
-app.get('/', routes.index)
+app.get('/', routes.index);
 app.get('/card/new', cardRoute.newCard );
 app.get('/card/edit/:card_id', cardRoute.editCard);
 app.post('/card/save', cardRoute.save );
-app.post('/people/create', personRoute.create)
-app.post('/component/create', componentRoute.create)
+app.post('/people/create', personRoute.create);
+app.post('/component/create', componentRoute.create);
+app.get('/person', personRoute.view );
+app.get('/person/view/:_id', personRoute.viewPerson);
+
 //app.post('/users/:user_id/tasks/create', task.create)
 //app.get('/users/:user_id/tasks/:task_id/destroy', task.destroy)
 

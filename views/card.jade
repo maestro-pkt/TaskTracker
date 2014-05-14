@@ -34,11 +34,17 @@ block content
         div.form-group
           label(for="cardOwner", class="col-sm-2 control-label") Owner
           div.col-sm-10
-            - if (typeof(storedCard) !== 'undefined'){
-              div( class="form-control", id="owner")
-               span.drop-fill Drop person(s) here
+            div( class="form-control", id="owner")
+              - if (typeof(storedCard) !== 'undefined' ){ 
+                //-console.log(storedCard._owner);
+                - if( typeof(storedCard._owner) !== 'undefined' && typeof(storedCard._owner._id) !== 'undefined' ) {
+                  div( id="#{storedCard._owner._id}" class="thingWrapper tag label btn-info sm")
+                    span #{storedCard._owner.name}
+                      a(class="removeTag", onclick="return removeTag( '#{storedCard._owner._id}' )", style="opacity: 0.6;")
+                        i(class="remove glyphicon glyphicon-remove-sign glyphicon-white")
+                - }
             - } else {  
-              div( class="form-control", id="owner")
+                span.drop-fill Drop person(s) here
             - }
         div(class="btn-toolbar", role="toolbar", style="margin-left: 15px; margin-bottom: 10px;")
           div.btn-group
