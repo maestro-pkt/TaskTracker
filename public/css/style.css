@@ -1,0 +1,100 @@
+body {
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+
+.sidebar-nav-fixed {
+	width:20%;
+}
+
+
+.label {
+	margin-right: 5px;
+}
+
+.drag-zone {
+  border: 2px solid #ccc;
+border-radius: 15px;
+  padding: 5px;
+  display: block;
+  float: left;
+}
+
+.todo {
+	border: 1px solid black;
+	margin-bottom: 5px;
+}
+
+.dragbtn {
+	cursor: default;
+	float: left;
+	margin: 5px;
+	font-size: 14px;
+}
+
+.stack {
+  width: 300px;
+  border: 1px dashed #ccc;
+  background-color: #f5f5f5;
+  margin: 10px;
+  float: left;
+  z-index: 500;
+}
+
+.card-title{ }
+.card-desc{ }
+.card-item { 
+  width: 25%;
+  border:2px solid;
+  border-radius:25px; 
+  padding: 10px;
+  margin-top: 5px;
+}
+.card-item.w2 { width: 50%; }
+
+.item {
+  border: 2px solid #ccc;
+border-radius: 15px;
+padding-left: 15px;
+padding-right: 15px;
+margin-top: 5px;
+}
+
+.item.input-group-addon {
+border: 0px;
+}
+
+.item-checkbox {
+  
+}
+
+.item-text {
+  
+}
+
+.item-dropzone {
+  display: block;
+  float: left;
+  height: auto;
+}
+
+.thingWrapper {
+  float: left;
+  margin: 5px;
+}
+
+@media print{
+    /*styles here*/
+    .well {
+    display: none;
+    }
+    .btn-toolbar {
+    display: none;
+    }
+    .cfgBtn{
+    display:none;
+    }
+    footer{
+    display:none;
+    }
+}

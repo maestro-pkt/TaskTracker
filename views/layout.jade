@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title= 'Tracker'
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css')
+    link(rel='stylesheet', href='/css/font-awesome-dist.css')
+    link(rel="stylesheet", href="/css/bootstrap3-wysihtml5.min.css")
+    
+    link(rel='stylesheet', href='/css/style.css')
+    
+
+  body
+    div( class="navbar navbar-fixed-top navbar-default")
+      div.container
+        div.navbar-header
+            a.navbar-brand( href="#" ) Project name
+          a.navbar-toggle( data-toggle="collase" data-target=".navbar-collapse" )
+            span(class="glyphicon glyphicon-bar")
+            span(class="glyphicon glyphicon-bar")
+            span(class="glyphicon glyphicon-bar")
+        div.navbar-collapse
+          ul(class="nav navbar-nav")
+            li
+              a(href="/") Home
+            li
+              a(href="/about") About
+            li
+              a(href="/card/new") New Card
+    div#container(class="container")
+      block content
+    footer
+      p Footer

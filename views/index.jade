@@ -1,0 +1,39 @@
+extends layout
+
+block content
+ link(rel='stylesheet', href='/css/style.css')
+
+ div#card-container
+  each c in cards
+   div.card-item
+    div(style="float: left;") 
+      div.card-title 
+        a.card-link( href="/card/edit/" + c._id ) #{c.title}
+        p #{c.num} / #{c.den}
+    //div( style="float: right;", class="percent-complete", data-dimension="64" data-text="75%" data-width="30" data-fontsize="18" data-percent="75" data-fgcolor="#61a9dc" data-bgcolor="#eee")
+    div(style="float:right", id="#{c._id}")
+    //div.card-desc #{c.desc}
+  
+   
+
+ script(src='/js/jquery-1.11.0.min.js')
+ script(src='/js/masonry.pkgd.min.js')
+ script(src='/js/bootstrap.min.js')
+ script(src='/js/jquery.percentageloader-0.1.min.js')
+
+ each c in cards
+   script.
+     var per = #{c.num} / #{c.den};
+     //console.log( per );
+     $("##{c._id}").percentageLoader({width: 64, height: 64, progress : per });
+     
+
+ script.
+   $( document ).ready(function() {
+     var $container = $('#card-container');
+     // initialize
+     $container.masonry({
+        columnWidth: 200, 
+        itemSelector: '.card-item'
+     });
+   });

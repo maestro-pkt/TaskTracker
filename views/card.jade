@@ -1,0 +1,100 @@
+extends layout
+
+block content
+  div.col-md-3
+    div(class="sidebar-nav-fixed affix")
+      div.well
+        div#cmp(class="drag-zone")
+        
+        h2 Create a new component
+        form(action="/component/create", method="post")
+          input(type="text", name="name", placeholder="Component Name")
+          input(type="submit")
+    
+  div.col-md-6
+    div(class="jumbotron", style="padding-top: 5px; padding-left: 10px; padding-right: 10px;")
+      form(id="cardRoot", class="form-horizontal", role="form", method="post")
+        div.form-group
+          label(for="cardTitle", class="col-sm-2 control-label") Card Title
+          div.col-sm-10
+            - if (typeof(storedCard) !== 'undefined'){
+              input(type="text", class="form-control", id="cardTitle" value="#{storedCard.title}")
+              input(type="hidden", class="form-control", id="cardId" value="#{storedCard._id}")
+            -} else {
+             input(type="text", class="form-control", id="cardTitle")            
+            -}
+        div.form-group
+          label(for="description", class="col-sm-2 control-label") Description
+          div.col-sm-10
+            - if (typeof(storedCard) !== 'undefined'){
+              textarea#description(class="form-control") #{storedCard.desc}
+            - } else {
+              textarea#description(class="form-control")
+            - }
+        div.form-group
+          label(for="cardOwner", class="col-sm-2 control-label") Owner
+          div.col-sm-10
+            - if (typeof(storedCard) !== 'undefined'){
+              div( class="form-control", id="owner")
+               span.drop-fill Drop person(s) here
+            - } else {  
+              div( class="form-control", id="owner")
+            - }
+        div(class="btn-toolbar", role="toolbar", style="margin-left: 15px; margin-bottom: 10px;")
+          div.btn-group
+            button( id="newItem", type="button", class="btn btn-primary btn-sm") New Item
+            button( type="button", class="btn btn-primary btn-sm dropdown-toggle", data-toggle="dropdown")
+              span( class="caret" )
+              span( class="sr-only") Toggle Dropdown
+            ul( class="dropdown-menu", role="menu")
+              li
+                a( href="#") New type (future)
+              li
+                a( href="#") Yet another type (future)
+          button( id="toggleCompletedItems", class="btn btn-primary btn-sm hideCompletedItems" )
+            span#toggle( class="glyphicon glyphicon-eye-close", style="padding-right: 5px;" ) 
+            span Hide Completed Items
+            
+          button( id="emailTeam", type="button", class="btn btn-primary btn-sm") Email Team         
+        div#itemPlaceholder
+        div.btn-toolbar
+          div( class="col-sm-offset-2 col-sm-10" )
+             button( id="saveCard", class="btn btn-primary btn-sm" type="submit" ) Save
+  div.col-md-3
+    div(class="sidebar-nav-fixed pull-right affix")
+      div.well
+        div( id="ppl", class="drag-zone")
+             
+  
+  
+        h2 Create a new team member
+        form(action="/people/create", method="post")
+          input(type="text", name="name", placeholder="Name")
+          input(type="email",name="email", placeholder="Email")
+          input(type="submit")
+    
+  script(src='/js/jquery-1.11.0.min.js')
+  script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
+  script(src='/js/bootstrap.min.js')
+  script(src="/js/wysihtml5-0.3.0.min.js")
+  script(src="/js/handlebars-v1.3.0.js")
+  script(src="/js/bootstrap3-wysihtml5.min.js")
+  script(src='/js/jquery.autosize.min.js')
+ 
+  script(src='/js/card.js')
+    
+  - if (typeof(storedCard) !== 'undefined'){
+    each item in storedCard.items
+      script.
+        var jsItem =  !{JSON.stringify(item)};
+        createItem2( jsItem );
+  - }
+    
+  each person in allPpl
+    script= "createButton( '" + person.name + "','" + person.email +"','" + person._id + "', '#ppl');"
+  
+  each cmp in allCmps
+    script= "createButton( '" + cmp.name + "','', '" + cmp._id + "', '#cmp');"
+      
+  
+  
