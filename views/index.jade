@@ -2,38 +2,69 @@ extends layout
 
 block content
  link(rel='stylesheet', href='/css/style.css')
+ link(rel='stylesheet', href='/css/jquery.gridster.css')
 
- div#card-container
-  each c in cards
-   div.card-item
-    div(style="float: left;") 
-      div.card-title 
-        a.card-link( href="/card/edit/" + c._id ) #{c.title}
-        p #{c.num} / #{c.den}
-    //div( style="float: right;", class="percent-complete", data-dimension="64" data-text="75%" data-width="30" data-fontsize="18" data-percent="75" data-fgcolor="#61a9dc" data-bgcolor="#eee")
-    div(style="float:right", id="#{c._id}")
-    //div.card-desc #{c.desc}
+ if un
+    h3 Welcome #{un}
+  else
+    p Not logged in
+
+ div#card-container(class="demo")
+  div.gridster
+    ul
+      - var row=1;
+      - var col=1;
+      each c in cards
+        - var per = c.num / c.den;
+        li(id="#{c._id}" class="card-item", data-row="#{row}", data-col="#{col}", data-sizex="1", data-sizey="1") 
+          div(style="float: left;") 
+            div.card-title 
+              a.card-link( href="/card/edit/" + c._id ) #{c.title}
+              p #{c.num} / #{c.den}
+          div(style="float:right", id="#{c._id}Per")
+            span(class="peity",data-diameter="64", data-fill='["darkblue", "#eeeeee"]' ) #{c.num}/#{c.den}
+            
+        - if( col > 3 ) {
+        -   row++;
+        -   col=1;
+        - } else {
+        -   col++;
+        - }
+      //- for( ; row<5; ) {  
+      //  li(id="#{row}#{col}" class="card-item", data-row="#{row}", data-col="#{col}", data-sizex="1", data-sizey="1") aaaaaaaaaaaa
+      //    - if( col > 3 ) {
+      //    -   row++;
+      //    -   col=1;
+      //    - } else {
+      //    -   col++;
+      //    - }
+      //- }
   
-   
-
+  
+     
  script(src='/js/jquery-1.11.0.min.js')
- script(src='/js/masonry.pkgd.min.js')
  script(src='/js/bootstrap.min.js')
  script(src='/js/jquery.percentageloader-0.1.min.js')
-
+ script(src='/js/jquery.gridster.js')
+ script(src='/js/jquery.mambo.min.js')
+ script(src='/js/jquery.peity.min.js')
+ script(src='/js/index.js')    
+ 
  each c in cards
    script.
+     $( document ).ready(function() {
      var per = #{c.num} / #{c.den};
-     //console.log( per );
-     $("##{c._id}").percentageLoader({width: 64, height: 64, progress : per });
-     
-
- script.
-   $( document ).ready(function() {
-     var $container = $('#card-container');
-     // initialize
-     $container.masonry({
-        columnWidth: 200, 
-        itemSelector: '.card-item'
+     console.log( per );
+     //$("##{c._id}").mambo({ percentage: 15 });
+     //$("##{c._id}Per").percentageLoader({width: 64, height: 64, progress : per });
      });
+ script.
+   var username = null;
+   $( document ).ready(function() {
+     $(".peity").peity("pie");
+     console.log( 'un:' );
+     un = "#{un}";
+     console.log( un );
+   
+  
    });

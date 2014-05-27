@@ -1,0 +1,29 @@
+extends layout
+
+block content
+
+ h1!=message
+
+ div(class="col-sm-6 col-sm-offset-3")
+   h1
+     span( class="fa fa-sign-in")
+     Signup
+
+   h1!=message
+   h1!=error
+
+   form(action="/signup" method="post")
+     div( class="form-group")
+       label Email
+       input( type="text" class="form-control" name="username")
+     div( class="form-group")
+       label Password
+       input( type="password" class="form-control" name="password")
+     button( type="submit" class="btn btn-warning btn-lg") Signup
+ 
+   hr
+
+   p Already have an account? 
+    a( href="/login") Login
+   p Or go 
+    a( href="/") home.

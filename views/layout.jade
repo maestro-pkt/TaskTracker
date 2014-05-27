@@ -29,6 +29,20 @@ html
               a(href="/card/new") New Card
             li
               a(href="/person") View By Person
+              
+          ul( class="nav navbar-nav navbar-right")
+            if un
+              li
+                a( href="/logout" class="btn btn-default navbar-btn")
+                  span( class="fa fa-user") Logout
+            else
+              li
+                a(href="/login" class="btn btn-default navbar-btn")
+                  span(class="fa fa-sign-in") Login
+              li
+                a( href="/signup" class="btn btn-default navbar-btn")
+                  span( class="fa fa-user") Signup
+           
     div#container(class="container")
       block content
     footer

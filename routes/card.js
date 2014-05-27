@@ -166,7 +166,8 @@ exports.save = function(req, res) {
     if (typeof cardObj._id === "undefined") {
       console.log('new card');
 
-      var o = '';
+      var o = null;
+      console.log( cardObj.owner.length );
       if( cardObj.owner.length ) {
         o = cardObj.owner[0];
       }
@@ -195,7 +196,7 @@ exports.save = function(req, res) {
         c.title = cardObj.title;
         c.description = cardObj.desc;
         if( cardObj.owner.length ) {
-        c._owner = cardObj.owner[0];
+          c._owner = cardObj.owner[0];
         } else {
           c._owner = undefined;
         }

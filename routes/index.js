@@ -2,8 +2,22 @@ var Card       = require('../models/card');
 var Item       = require( '../models/item');
 
 
+exports.updateLayout = function( req, res ) {
+ var positions = req.body.positions;
+ console.log( req.body.username );
+ console.log( positions );
+ res.writeHead(200 );
+ 
+}
+
 exports.index = function(req, res){
 
+ 
+  var message = null;
+  if( req.session.user ) {
+    message = req.session.user.username;
+  }
+  console.log( message );
   Card.find({})
    .populate( 'items')
    .exec(function (err, cards) {
@@ -25,13 +39,11 @@ exports.index = function(req, res){
             }
             oneCard.num = completed;
             oneCard.den = totalItems;
-
           }
-
-
 
           res.render( 'index', {
             cards: cards
+           , un: message
           });
 
         }

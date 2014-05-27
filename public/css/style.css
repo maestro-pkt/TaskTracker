@@ -43,12 +43,14 @@ border-radius: 15px;
 
 .card-title{ }
 .card-desc{ }
+
 .card-item { 
-  width: 25%;
+  display: block;
   border:2px solid;
   border-radius:25px; 
   padding: 10px;
   margin-top: 5px;
+  /*background-color: grey;*/
 }
 .card-item.w2 { width: 50%; }
 
@@ -97,4 +99,37 @@ border: 0px;
     footer{
     display:none;
     }
+}
+
+ul, ol {
+    list-style: none;
+}
+
+
+
+.demo:hover .gridster {
+    opacity: 1;
+    background-color: yellow;
+}
+
+.gridster {
+    width: 100%;
+  padding: 4%;
+  height: 100%;
+    margin: 0 ;
+
+    opacity: .8;
+
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster .gs_w {
+    background-color: green;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
