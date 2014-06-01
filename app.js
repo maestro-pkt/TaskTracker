@@ -81,6 +81,7 @@ app.get('/card/edit/:card_id', requiredAuthentication, cardRoute.editCard);
 app.post('/card/save', cardRoute.save );
 app.post('/people/create', requiredAuthentication, personRoute.create);
 app.post('/component/create', requiredAuthentication, componentRoute.create);
+app.get('/component/flowchart', requiredAuthentication, componentRoute.flowchart );
 app.get('/person', requiredAuthentication, personRoute.view );
 app.get('/person/view/:_id', requiredAuthentication, personRoute.viewPerson);
 
