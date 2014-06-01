@@ -16,3 +16,9 @@ exports.create = function(req, res) {
     }
   });
  }
+
+exports.flowchart = function(req, res ) {
+	res.render('flowchart', {
+		
+    });
+}

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+ link(rel='stylesheet', href='/css/jsplumb.css' )
+ link(rel='stylesheet', href='/css/flowchart.css')
+
+  div.wrapper1
+   
+ 
+    
+  script(src='/js/jquery-1.11.0.min.js')
+  script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
+  script(src='/js/bootstrap.min.js')
+  script(src='/js/jquery.autosize.min.js')
+ 
+  script(src='/js/card.js')
+    
+  - if (typeof(storedCard) !== 'undefined'){
+    each item in storedCard.items
+      script.
+        var jsItem =  !{JSON.stringify(item)};
+        createItem2( jsItem );
+  - }
+    
+  each person in allPpl
+    script= "createButton( '" + person.name + "','" + person.email +"','" + person._id + "', '#ppl');"
+  
+  each cmp in allCmps
+    script= "createButton( '" + cmp.name + "','', '" + cmp._id + "', '#cmp');"
