@@ -2,28 +2,20 @@ extends layout
 
 block content
  link(rel='stylesheet', href='/css/jsplumb.css' )
- link(rel='stylesheet', href='/css/flowchart.css')
+ link(rel='stylesheet', href='/css/flowchart.css' )
 
-  div.wrapper1
-   
+ div.wrapper1
+   div(class="my-chart", id="flowchart")
+     div(class="window", id="opened")
+       div.ep
+       strong Start
+     div(class="window", id="flowchartWindow2")
+       div.ep
+       strong One 
+    
+ script(src='http://code.jquery.com/jquery-1.9.1.js')
+ script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
+ script(src='/js/bootstrap.min.js')
+ script(src='/js/jquery.jsPlumb-1.6.1-min.js')
  
-    
-  script(src='/js/jquery-1.11.0.min.js')
-  script(src='/jquery-ui/js/jquery-ui-1.10.4.custom.min.js')
-  script(src='/js/bootstrap.min.js')
-  script(src='/js/jquery.autosize.min.js')
- 
-  script(src='/js/card.js')
-    
-  - if (typeof(storedCard) !== 'undefined'){
-    each item in storedCard.items
-      script.
-        var jsItem =  !{JSON.stringify(item)};
-        createItem2( jsItem );
-  - }
-    
-  each person in allPpl
-    script= "createButton( '" + person.name + "','" + person.email +"','" + person._id + "', '#ppl');"
-  
-  each cmp in allCmps
-    script= "createButton( '" + cmp.name + "','', '" + cmp._id + "', '#cmp');"
+ script(src='/js/flowchart.js')
