@@ -1,52 +1,66 @@
 jsPlumb.ready(function() {
 
-	
-	// setup some defaults for jsPlumb.	
+	// setup some defaults for jsPlumb.
 	var instance = window.instance = jsPlumb.getInstance({
-		Endpoint : ["Dot", {radius:2}],
-		HoverPaintStyle : {strokeStyle:"#1e8151", lineWidth:2 },
-		ConnectionOverlays : [
-			[ "Arrow", { 
-				location:1,
-				id:"arrow",
-                length:14,
-                foldback:0.8
-			} ],
-            [ "Label", { label:"FOO", id:"label", cssClass:"aLabel" }]
-		],
-		Container:"flowchart"
+		Endpoint : [ "Dot", {
+			radius : 2
+		} ],
+		HoverPaintStyle : {
+			strokeStyle : "#1e8151",
+			lineWidth : 2
+		},
+		ConnectionOverlays : [ [ "Arrow", {
+			location : 1,
+			id : "arrow",
+			length : 14,
+			foldback : 0.8
+		} ], [ "Label", {
+			label : "FOO",
+			id : "label",
+			cssClass : "aLabel"
+		} ] ],
+		Container : "flowchart"
 	});
 
 	var windows = jsPlumb.getSelector(".window");
-console.log( 'a');
-    // initialise draggable elements.  
+	console.log('a');
+	// initialise draggable elements.
 	instance.draggable(windows);
-console.log('b');
-    // bind a click listener to each connection; the connection is deleted. you could of course
-	// just do this: jsPlumb.bind("click", jsPlumb.detach), but I wanted to make it clear what was
+	console.log('b');
+	// bind a click listener to each connection; the connection is deleted. you
+	// could of course
+	// just do this: jsPlumb.bind("click", jsPlumb.detach), but I wanted to make
+	// it clear what was
 	// happening.
-	instance.bind("click", function(c) { 
-		instance.detach(c); 
+	instance.bind("click", function(c) {
+		instance.detach(c);
 	});
-console.log('c');
-	// bind a connection listener. note that the parameter passed to this function contains more than
-	// just the new connection - see the documentation for a full list of what is included in 'info'.
+	console.log('c');
+	// bind a connection listener. note that the parameter passed to this
+	// function contains more than
+	// just the new connection - see the documentation for a full list of what
+	// is included in 'info'.
 	// this listener sets the connection's internal
 	// id as the label overlay's text.
-    instance.bind("connection", function(info) {
+	instance.bind("connection", function(info) {
 		info.connection.getOverlay("label").setLabel(info.connection.id);
-    });
-console.log('d');
+	});
+	console.log('d');
 
 	// suspend drawing and initialise.
 	instance.doWhileSuspended(function() {
-		console.log( 'doWhileSuspended-start');
+		console.log('doWhileSuspended-start');
 		var isFilterSupported = instance.isDragFilterSupported();
-		// make each ".ep" div a source and give it some parameters to work with.  here we tell it
-		// to use a Continuous anchor and the StateMachine connectors, and also we give it the
-		// connector's paint style.  note that in this demo the strokeStyle is dynamically generated,
-		// which prevents us from just setting a jsPlumb.Defaults.PaintStyle.  but that is what i
-		// would recommend you do. Note also here that we use the 'filter' option to tell jsPlumb
+		// make each ".ep" div a source and give it some parameters to work
+		// with. here we tell it
+		// to use a Continuous anchor and the StateMachine connectors, and also
+		// we give it the
+		// connector's paint style. note that in this demo the strokeStyle is
+		// dynamically generated,
+		// which prevents us from just setting a jsPlumb.Defaults.PaintStyle.
+		// but that is what i
+		// would recommend you do. Note also here that we use the 'filter'
+		// option to tell jsPlumb
 		// which parts of the element should actually respond to a drag start.
 		// here we test the capabilities of the library, to see if we
 		// can provide a `filter` (our preference, support by vanilla
@@ -54,62 +68,80 @@ console.log('d');
 		// a `parent` (YUI and MooTools). I want to make it perfectly
 		// clear that `filter` is better. Use filter when you can.
 		if (isFilterSupported) {
-			console.log( 'filter supported');
+			console.log('filter supported');
 			instance.makeSource(windows, {
-				filter:".ep",
-				anchor:"Continuous",
-				connector:[ "StateMachine", { curviness:20 } ],
-				connectorStyle:{ strokeStyle:"#5c96bc", lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
-				maxConnections:5,
-				onMaxConnections:function(info, e) {
-					alert("Maximum connections (" + info.maxConnections + ") reached");
+				filter : ".ep",
+				anchor : "Continuous",
+				connector : [ "StateMachine", {
+					curviness : 20
+				} ],
+				connectorStyle : {
+					strokeStyle : "#5c96bc",
+					lineWidth : 2,
+					outlineColor : "transparent",
+					outlineWidth : 4
+				},
+				maxConnections : 5,
+				onMaxConnections : function(info, e) {
+					alert("Maximum connections (" + info.maxConnections
+							+ ") reached");
 				}
 			});
-		}
-		else {
-			console.log( 'else');
+		} else {
+			console.log('else');
 			var eps = jsPlumb.getSelector(".ep");
-			for (var i = 0; i < eps.length; i++) {
+			for ( var i = 0; i < eps.length; i++) {
 				var e = eps[i], p = e.parentNode;
 				instance.makeSource(e, {
-					parent:p,
-					anchor:"Continuous",
-					connector:[ "StateMachine", { curviness:20 } ],
-					connectorStyle:{ strokeStyle:"#5c96bc",lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
-					maxConnections:5,
-					onMaxConnections:function(info, e) {
-						alert("Maximum connections (" + info.maxConnections + ") reached");
+					parent : p,
+					anchor : "Continuous",
+					connector : [ "StateMachine", {
+						curviness : 20
+					} ],
+					connectorStyle : {
+						strokeStyle : "#5c96bc",
+						lineWidth : 2,
+						outlineColor : "transparent",
+						outlineWidth : 4
+					},
+					maxConnections : 5,
+					onMaxConnections : function(info, e) {
+						alert("Maximum connections (" + info.maxConnections
+								+ ") reached");
 					}
 				});
 			}
 		}
-		console.log( 'doWhileSuspended-end');
+		console.log('doWhileSuspended-end');
 
 	});
-console.log('e');
-console.log( instance );
-console.log( windows );
+	console.log('e');
+	console.log(instance);
+	console.log(windows);
 	// initialize all '.window' elements as connection targets.
 	instance.makeTarget(windows, {
-		dropOptions:{ hoverClass:"dragHover" },
-		anchor:"Continuous"				
+		dropOptions : {
+			hoverClass : "dragHover"
+		},
+		anchor : "Continuous"
 	});
-console.log('f');	
+	console.log('f');
 	// and finally, make a couple of connections
-	//instance.connect({ source:"opened", target:"flowchartWindow2" });
-	//instance.connect({ source:"phone1", target:"phone1" });
-	//instance.connect({ source:"phone1", target:"inperson" });
+	// instance.connect({ source:"opened", target:"flowchartWindow2" });
+	// instance.connect({ source:"phone1", target:"phone1" });
+	// instance.connect({ source:"phone1", target:"inperson" });
 
+	$('.box').draggable({
+		drag:function(){
+		    jsPlumb.repaint($('.lBox , .rBox', $(this))); // or simply jsPlumb.repaintEverything();
+		}
+		});
 	
-	
-
-	
-
 	var _addEndpoints = function(toId, sourceAnchors, targetAnchors) {
-		console.log( 'addEndpoints: ' + toId );
+		console.log('addEndpoints: ' + toId);
 		for ( var i = 0; i < sourceAnchors.length; i++) {
 			var sourceUUID = toId + sourceAnchors[i];
-			instance.addEndpoint( toId, sourceEndpoint, {
+			instance.addEndpoint(toId, sourceEndpoint, {
 				anchor : sourceAnchors[i],
 				uuid : sourceUUID
 			});
@@ -123,19 +155,18 @@ console.log('f');
 		}
 	};
 
-	var _addBox = function( id, title, x, y ) {
-console.log( 'x: ' + x );
-console.log( 'y: ' + y );
+	var _addBox = function(id, title, x, y) {
+		console.log('x: ' + x);
+		console.log('y: ' + y);
 
-$('#myModal').modal('show');
-console.log( $('#myModel') );
+		$('#myModal').modal('show');
+		console.log($('#myModel'));
 
-
-		var newState = $('<div>').attr('id', id ).addClass('window');
+		var newState = $('<div>').attr('id', id).addClass('window');
 
 		var ep = $('<div>').addClass('ep');
-		
-		var title = $('<div>').addClass('title').text( title );
+
+		var title = $('<div>').addClass('title').text(title);
 		// var connect = $('<div>').addClass('connect');
 
 		newState.css({
@@ -147,31 +178,38 @@ console.log( $('#myModel') );
 			containment : 'parent'
 		});
 
-		
-		
-		
 		newState.dblclick(function(e) {
 			jsPlumb.detachAllConnections($(this));
 			$(this).remove();
 			e.stopPropagation();
 		});
-		
+
 		instance.makeSource(newState, {
-			filter:".ep",
-			anchor:"Continuous",
-			connector:[ "StateMachine", { curviness:20 } ],
-			connectorStyle:{ strokeStyle:"#5c96bc", lineWidth:2, outlineColor:"transparent", outlineWidth:4 },
-			maxConnections:5,
-			onMaxConnections:function(info, e) {
-				alert("Maximum connections (" + info.maxConnections + ") reached");
+			filter : ".ep",
+			anchor : "Continuous",
+			connector : [ "StateMachine", {
+				curviness : 20
+			} ],
+			connectorStyle : {
+				strokeStyle : "#5c96bc",
+				lineWidth : 2,
+				outlineColor : "transparent",
+				outlineWidth : 4
+			},
+			maxConnections : 5,
+			onMaxConnections : function(info, e) {
+				alert("Maximum connections (" + info.maxConnections
+						+ ") reached");
 			}
-		});		
-		
-		instance.makeTarget(newState, {
-			dropOptions:{ hoverClass:"dragHover" },
-			anchor:"Continuous"				
 		});
-		
+
+		instance.makeTarget(newState, {
+			dropOptions : {
+				hoverClass : "dragHover"
+			},
+			anchor : "Continuous"
+		});
+
 		newState.append(ep);
 		newState.append(title);
 		// newState.append(connect);
@@ -179,36 +217,127 @@ console.log( $('#myModel') );
 		$('#flowchart').append(newState);
 	}
 
-
-
-console.log( 'a' );
-console.log( $( '#flowchart' ) );
+	console.log('a');
+	console.log($('#flowchart'));
 	var i = 0;
 	$('#flowchart').dblclick(function(e) {
-		console.log( e );
-		
-		_addBox( 'state' + i, 'State ' + i, e.pageX, e.pageY);
+		console.log(e);
 
-		//	_addEndpoints( WindowId, Sources, Sinks );
+		_addBox('state' + i, 'State ' + i, e.pageX, e.pageY);
 
-		//_addEndpoints("state" + i, [ "LeftMiddle", "RightMiddle" ], ["TopCenter", "BottomCenter" ]);
+		// _addEndpoints( WindowId, Sources, Sinks );
 
-	
+		// _addEndpoints("state" + i, [ "LeftMiddle", "RightMiddle" ],
+		// ["TopCenter", "BottomCenter" ]);
+
 		i++;
 	});
 
+	function saveFlowchart() {
+		var nodes = []
+		$(".node").each(function(idx, elem) {
+			var $elem = $(elem);
+			var endpoints = jsPlumb.getEndpoints($elem.attr('id'));
+			console.log('endpoints of ' + $elem.attr('id'));
+			console.log(endpoints);
+			nodes.push({
+				blockId : $elem.attr('id'),
+				nodetype : $elem.attr('data-nodetype'),
+				positionX : parseInt($elem.css("left"), 10),
+				positionY : parseInt($elem.css("top"), 10)
+			});
+		});
+		var connections = [];
+		$.each(jsPlumb.getConnections(), function(idx, connection) {
+			connections.push({
+				connectionId : connection.id,
+				pageSourceId : connection.sourceId,
+				pageTargetId : connection.targetId,
+				anchors : $.map(connection.endpoints, function(endpoint) {
+
+					return [ [ endpoint.anchor.x, endpoint.anchor.y,
+							endpoint.anchor.orientation[0],
+							endpoint.anchor.orientation[1],
+							endpoint.anchor.offsets[0],
+							endpoint.anchor.offsets[1] ] ];
+
+				})
+			});
+		});
+
+		var flowChart = {};
+		flowChart.nodes = nodes;
+		flowChart.connections = connections;
+		flowChart.numberOfElements = numberOfElements;
+
+		var seenConnections = false;
+
+		var flowChartJson = JSON.stringify(flowChart, function(key, val) {
+			if (key == "connections" && seenConnections) {
+				return;
+			} else if (key == "connections")
+				seenConnections = true;
+
+			if (key == "_jsPlumb") {
+				return;
+			}
+			return val
+		});
+
+		// console.log(flowChartJson);
+
+		$('#jsonOutput').val(flowChartJson);
+	}
+	function loadFlowchart() {
+		var flowChartJson = $('#jsonOutput').val();
+		var flowChart = JSON.parse(flowChartJson);
+		var nodes = flowChart.nodes;
+		$.each(nodes,
+				function(index, elem) {
+					if (elem.nodetype === 'startpoint') {
+						repositionElement('startpoint', elem.positionX,
+								elem.positionY);
+					} else if (elem.nodetype === 'endpoint') {
+						repositionElement('endpoint', elem.positionX,
+								elem.positionY);
+					} else if (elem.nodetype === 'task') {
+						var id = addTask(elem.blockId);
+						repositionElement(id, elem.positionX, elem.positionY);
+					} else if (elem.nodetype === 'decision') {
+						var id = addDecision(elem.blockId);
+						repositionElement(id, elem.positionX, elem.positionY);
+					} else {
+
+					}
+				});
+
+		var connections = flowChart.connections;
+		$.each(connections, function(index, elem) {
+			var connection1 = jsPlumb.connect({
+				source : elem.pageSourceId,
+				target : elem.pageTargetId,
+				anchors : elem.anchors
+			});
+
+		});
+
+		numberOfElements = flowChart.numberOfElements;
+	}
+	function repositionElement(id, posX, posY) {
+		$('#' + id).css('left', posX);
+		$('#' + id).css('top', posY);
+		jsPlumb.repaint(id);
+	}
+
 });
 
-$('#myFormSubmit').click(function(e){
-    e.preventDefault();
-    $('#myModel').modal('hide');
-    alert($('#myField').val());
-    
-    /*
-    $.post('http://path/to/post', 
-       $('#myForm').serialize(), 
-       function(data, status, xhr){
-         // do something here with response;
-       });
-    */
+$('#myFormSubmit').click(function(e) {
+	e.preventDefault();
+	$('#myModel').modal('hide');
+	alert($('#myField').val());
+
+	/*
+	 * $.post('http://path/to/post', $('#myForm').serialize(), function(data,
+	 * status, xhr){ // do something here with response; });
+	 */
 });
